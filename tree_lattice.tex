@@ -1,0 +1,98 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\usetikzlibrary{matrix}
+\usetikzlibrary{intersections, positioning, calc}
+ \usetikzlibrary{arrows,decorations.markings}
+
+ \usetikzlibrary{arrows.meta}
+ \tikzset{>={Latex[width=0.2cm,length=0.2cm, scale=2.0]}}
+    
+\tikzset{
+  font={\fontsize{25pt}{12}\selectfont}}
+ 
+ 
+\begin{document}
+   \begin{tikzpicture}[->=Latex,  sloped]
+     \matrix (tree) [%
+       matrix of nodes,
+       minimum size=1cm,
+       column sep=3.5cm,
+       row sep=1cm,
+       nodes = {minimum size=2cm, draw=black, shape=circle},
+     ]
+     {
+           &     &      & 1  &    &    & \\
+           &     & 4   &     & 1 &   & \\
+           & 10 &     & 3  &    & 1 & \\
+       20 &     &  6 &    & 2 &   &1\\
+           & 10 &      & 3  &    & 1 &\\
+           &     &   4  &    & 1 &   & \\
+           &     &      & 1  &    &    & \\
+     };
+     \draw[->] (tree-4-1) -- (tree-3-2);
+     \draw[->] (tree-4-1) -- (tree-5-2);
+     
+     \draw[->] (tree-3-2) -- (tree-2-3);
+     \draw[->] (tree-3-2) -- (tree-4-3);
+     \draw[->] (tree-5-2) -- (tree-4-3);
+     \draw[->] (tree-5-2) -- (tree-6-3);
+     
+     \draw[->] (tree-2-3) -- (tree-1-4);
+     \draw[->] (tree-2-3) -- (tree-3-4);
+     \draw[->] (tree-4-3) -- (tree-3-4);
+     \draw[->] (tree-4-3) -- (tree-5-4);
+   	\draw[->] (tree-6-3) -- (tree-5-4);
+     \draw[->] (tree-6-3) -- (tree-7-4);
+     
+     \draw[->] (tree-1-4) -- (tree-2-5);
+     \draw[->] (tree-3-4) -- (tree-2-5);
+     \draw[->] (tree-3-4) -- (tree-4-5);
+     \draw[->] (tree-5-4) -- (tree-4-5);
+   	\draw[->] (tree-5-4) -- (tree-6-5);
+     \draw[->] (tree-7-4) -- (tree-6-5);
+     
+     \draw[->] (tree-2-5) -- (tree-3-6);
+     \draw[->] (tree-4-5) -- (tree-3-6);
+     \draw[->] (tree-4-5) -- (tree-5-6);
+     \draw[->] (tree-6-5) -- (tree-5-6);
+     
+     \draw[->] (tree-3-6) -- (tree-4-7);
+     \draw[->] (tree-5-6) -- (tree-4-7);
+     
+     %\draw[-, thick] ($(tree-4-1)!0.3!(tree-3-2)$) to [bend left=30] ($(tree-4-1)!0.3!(tree-5-2)$);
+     
+     \foreach \x in {4}
+      {
+      	 \pgfmathtruncatemacro{\xm}{\x - 1}
+            \pgfmathtruncatemacro{\xp}{\x + 1}
+            \draw[-, thick] ($(tree-\x-1)!0.3!(tree-\xm-2)$) to [bend left=30] ($(tree-\x-1)!0.3!(tree-\xp-2)$);
+       };
+      \foreach \x in {3,5}
+      {
+      	 \pgfmathtruncatemacro{\xm}{\x - 1}
+            \pgfmathtruncatemacro{\xp}{\x + 1}
+            \draw[-, thick] ($(tree-\x-2)!0.3!(tree-\xm-3)$) to [bend left=30] ($(tree-\x-2)!0.3!(tree-\xp-3)$);
+       }
+       \foreach \x in {2,4,6}
+      {
+      	 \pgfmathtruncatemacro{\xm}{\x - 1}
+            \pgfmathtruncatemacro{\xp}{\x + 1}
+            \draw[-, thick] ($(tree-\x-3)!0.3!(tree-\xm-4)$) to [bend left=30] ($(tree-\x-3)!0.3!(tree-\xp-4)$);
+       }
+       
+       %%
+        \foreach \x in {3,5}
+      {
+      	 \pgfmathtruncatemacro{\xm}{\x - 1}
+            \pgfmathtruncatemacro{\xp}{\x + 1}
+            \draw[-, thick] ($(tree-\x-4)!0.3!(tree-\xm-5)$) to [bend left=30] ($(tree-\x-4)!0.3!(tree-\xp-5)$);
+       }
+        \foreach \x in {4}
+      {
+      	 \pgfmathtruncatemacro{\xm}{\x - 1}
+            \pgfmathtruncatemacro{\xp}{\x + 1}
+            \draw[-, thick] ($(tree-\x-5)!0.3!(tree-\xm-6)$) to [bend left=30] ($(tree-\x-5)!0.3!(tree-\xp-6)$);
+       };
+       
+   \end{tikzpicture}
+\end{document}
